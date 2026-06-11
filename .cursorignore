@@ -1,0 +1,18 @@
+# Dependencies (heavy, saves tokens)
+node_modules/
+
+# Compiled output (AI only needs src/)
+dist/
+
+# Secrets and logs
+.env
+.git/
+logs/
+*.log
+
+# Binary and media files (prevents token waste and parsing errors)
+test-data/*.pdf
+test-data/*.jpg
+test-data/*.jpeg
+test-data/*.png
+docs/assets/*.png
