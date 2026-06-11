@@ -55,8 +55,7 @@ export class DocumentController {
   @ApiResponse({ status: 400, description: 'Invalid file type or missing file' })
   async extract(
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<{ message: string }> {
-    void file;
-    return { message: 'Upload success' };
+  ): Promise<ExtractionResponseSchema> {
+    return this.documentService.extract(file);
   }
 }

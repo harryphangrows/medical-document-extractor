@@ -2,11 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class FieldValueSchema {
   @ApiProperty({
-    oneOf: [{ type: 'string' }, { type: 'number' }],
+    oneOf: [
+      { type: 'string' },
+      { type: 'number' },
+      { type: 'array', items: {} },
+      { type: 'object' },
+    ],
     nullable: true,
     example: 'Bangkok Hospital',
   })
-  value: string | number | null;
+  value: string | number | Record<string, unknown> | unknown[] | null;
 
   @ApiProperty({ example: 0.95, minimum: 0, maximum: 1 })
   confidence: number;
