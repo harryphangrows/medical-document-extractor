@@ -25,6 +25,7 @@ export class ValidationErrorSchema {
     example: 'MATHEMATICAL_MISMATCH',
     enum: [
       'INVALID_DATE',
+      'AMBIGUOUS_DATE',
       'NEGATIVE_AMOUNT',
       'MATHEMATICAL_MISMATCH',
       'SUSPICIOUS_VALUE',
@@ -33,6 +34,7 @@ export class ValidationErrorSchema {
   })
   error_type:
     | 'INVALID_DATE'
+    | 'AMBIGUOUS_DATE'
     | 'NEGATIVE_AMOUNT'
     | 'MATHEMATICAL_MISMATCH'
     | 'SUSPICIOUS_VALUE'

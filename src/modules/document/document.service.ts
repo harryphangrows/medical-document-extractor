@@ -12,6 +12,7 @@ import {
   AiFieldValue,
   AiExtractionResult,
   RESPONSE_SCHEMA,
+  FIELDS_BY_TYPE,
 } from './schemas/gemini-response.schema';
 import { SYSTEM_PROMPT, USER_PROMPT } from './document.prompts';
 import { DocumentValidationService } from './document-validation.service';
@@ -83,11 +84,12 @@ export class DocumentService {
       // 5. Sanitize field values — remove OCR artefacts and deduplicate arrays
       this.sanitizeFields(parsed.fields);
 
-      // 6. Strip null-valued fields so the response only shows relevant data
-      const activeFields = Object.fromEntries(
-        Object.entries(parsed.fields).filter(
-          ([, f]) => f != null && f.value !== null,
-        ),
+      // 6. Normalize fields for the detected document type:
+      //    • keep only fields that belong to this type (strip extras)
+      //    • inject { value: null, confidence: 0 } for any required field the
+      const activeFields = this.normalizeForDocType(
+        parsed.document_type,
+        parsed.fields,
       );
 
       // 7. Run post-processing validations
@@ -114,6 +116,32 @@ export class DocumentService {
   }
 
   // ─── Post-processing sanitizers ──────────────────────────────────────────────
+
+  /**
+   * Returns a field map that:
+   *  1. Contains ONLY the canonical fields for `docType` (strips extras).
+   *  2. Has every required field present — missing ones are injected as
+   *     `{ value: null, confidence: 0 }` so the response shape is always complete.
+   */
+  private normalizeForDocType(
+    docType: string,
+    fields: Record<string, AiFieldValue>,
+  ): Record<string, AiFieldValue> {
+    const allowed = FIELDS_BY_TYPE[docType] ?? Object.keys(fields);
+    const result: Record<string, AiFieldValue> = {};
+
+    for (const key of allowed) {
+      const field = fields[key];
+      if (field != null) {
+        result[key] = field;
+      } else {
+        // Required field absent from AI response — inject explicit null
+        result[key] = { value: null, confidence: 0 };
+      }
+    }
+
+    return result;
+  }
 
   /**
    * Cleans OCR artefacts from field values and deduplicates array fields.

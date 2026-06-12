@@ -1,0 +1,94 @@
+{
+  "document_type": "lab_report",
+  "confidence": 0.94,
+  "fields": {
+    "lab_name": {
+      "confidence": 0.83,
+      "value": "MODERN DIAGNOSTIC LAB"
+    },
+    "patient_name": {
+      "confidence": 0.85,
+      "value": "MR CHAND"
+    },
+    "date": {
+      "confidence": 0.85,
+      "value": "19/11/2025"
+    },
+    "tests": {
+      "confidence": 0.85,
+      "value": [
+        {
+          "flag": "normal",
+          "reference_range": "0 - 1.0",
+          "result": "0.80",
+          "test_name": "BILIRUBIN TOTAL",
+          "unit": "mg/dl"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "0.00 - 0.25",
+          "result": "0.20",
+          "test_name": "CONJUGATED (D. Bilirubin)",
+          "unit": "mg/dl"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "0.00 - 0.70",
+          "result": "0.60",
+          "test_name": "UNCONJUGATED (I.D.Bilirubin)",
+          "unit": "mg/dl"
+        },
+        {
+          "flag": "high",
+          "reference_range": "0 - 40",
+          "result": "100",
+          "test_name": "SGOT",
+          "unit": "IU/L"
+        },
+        {
+          "flag": "high",
+          "reference_range": "0.0 - 41.0",
+          "result": "82",
+          "test_name": "SGPT",
+          "unit": "IU/L"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "40.0 - 130.0",
+          "result": "72",
+          "test_name": "ALKALINE PHOSPHATASE",
+          "unit": "U/L"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "6.4 - 8.3",
+          "result": "6.9",
+          "test_name": "TOTAL PROTEIN",
+          "unit": "gm/dl"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "3.5 - 5.2",
+          "result": "3.9",
+          "test_name": "ALBUMIN",
+          "unit": "gm/dl"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "2.5 - 3.8",
+          "result": "3.0",
+          "test_name": "GLOBULIN",
+          "unit": "gm/dl"
+        }
+      ]
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "ALL",
+      "error_type": "UNIFORM_CONFIDENCE",
+      "message": "AI did not differentiate confidence scores — all 4 fields returned uniformly high confidence (original range: 0.92–0.95, all ≥ 0.90). Values reduced by 10% (after reduction: 0.83–0.85).",
+      "severity": "WARNING"
+    }
+  ]
+}

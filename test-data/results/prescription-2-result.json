@@ -1,0 +1,45 @@
+{
+  "document_type": "prescription",
+  "confidence": 0.95,
+  "fields": {
+    "doctor_name": {
+      "confidence": 0.85,
+      "value": "Dr. Elizabeth Blackwell"
+    },
+    "patient_name": {
+      "confidence": 0.87,
+      "value": "Arthur Dent"
+    },
+    "date": {
+      "confidence": 0.86,
+      "value": "12-Jan-2026"
+    },
+    "medications": {
+      "confidence": 0.85,
+      "value": [
+        {
+          "dosage": "500mg",
+          "duration": "7 days",
+          "frequency": "1 capsule 3 times a day",
+          "name": "Amoxicillin",
+          "quantity": "21 capsules"
+        },
+        {
+          "dosage": "500mg",
+          "duration": "5 days",
+          "frequency": "1 tablet every 6 hours as needed for pain",
+          "name": "Paracetamol",
+          "quantity": "20 tablets"
+        }
+      ]
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "ALL",
+      "error_type": "UNIFORM_CONFIDENCE",
+      "message": "AI did not differentiate confidence scores — all 4 fields returned uniformly high confidence (original range: 0.94–0.97, all ≥ 0.90). Values reduced by 10% (after reduction: 0.85–0.87).",
+      "severity": "WARNING"
+    }
+  ]
+}

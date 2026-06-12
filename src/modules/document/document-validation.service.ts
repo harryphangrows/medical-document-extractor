@@ -19,6 +19,9 @@ export class DocumentValidationService {
 
   // ─── Rule 1: Dates must be valid dates ─────────────────────────────────────
 
+  // Matches dates with a 2-digit year, e.g. "10-11-23", "09/11/12", "1.2.99"
+  private readonly AMBIGUOUS_DATE_RE = /^\d{1,2}[-/.]\d{1,2}[-/.]\d{2}$/;
+
   private validateDates(
     fields: AiExtractionResult['fields'],
     errors: ValidationErrorSchema[],
@@ -31,11 +34,23 @@ export class DocumentValidationService {
         const value = f.value;
         if (value !== null && value !== undefined) {
           if (typeof value === 'string' && value.trim() !== '') {
-            if (!this.parseDate(value)) {
+            const trimmed = value.trim();
+
+            if (this.AMBIGUOUS_DATE_RE.test(trimmed)) {
+              errors.push({
+                field: key,
+                error_type: 'AMBIGUOUS_DATE',
+                message:
+                  `Field '${key}' has a 2-digit year: "${trimmed}". ` +
+                  'The century is ambiguous (e.g. "23" could be 1923 or 2023). Use a 4-digit year.',
+                severity: 'WARNING',
+              });
+              f.confidence = Math.min(f.confidence, 0.45);
+            } else if (!this.parseDate(trimmed)) {
               errors.push({
                 field: key,
                 error_type: 'INVALID_DATE',
-                message: `Field '${key}' contains an invalid date: "${value}"`,
+                message: `Field '${key}' contains an invalid date: "${trimmed}"`,
                 severity: 'ERROR',
               });
             }
@@ -133,7 +148,7 @@ export class DocumentValidationService {
           grandTotalValue !== null &&
           grandTotalValue !== undefined &&
           typeof grandTotalValue === 'number' &&
-          grandTotalValue > 0
+          grandTotalValue >= 0
         ) {
           type LineItem = { total?: number | null };
           const items = itemsValue as LineItem[];
@@ -143,19 +158,31 @@ export class DocumentValidationService {
             0,
           );
 
-          const diff = summedTotal - grandTotalValue;
-          const diffRatio = Math.abs(diff) / grandTotalValue;
-
-          if (diffRatio > 0.05) {
+          // grand_total = 0 with items present is almost certainly an OCR failure
+          if (grandTotalValue === 0 && summedTotal > 0) {
             errors.push({
               field: 'grand_total',
               error_type: 'MATHEMATICAL_MISMATCH',
               message:
-                `Item totals sum (${summedTotal.toFixed(2)}) differs from grand_total ` +
-                `(${grandTotalValue.toFixed(2)}) by ${Math.abs(diff).toFixed(2)} ` +
-                `(${(diffRatio * 100).toFixed(1)}%)`,
-              severity: 'WARNING',
+                `grand_total is 0 but item totals sum to ${summedTotal.toFixed(2)}. ` +
+                `This is likely an OCR read error — the actual total was not captured.`,
+              severity: 'ERROR',
             });
+          } else if (grandTotalValue > 0) {
+            const diff = summedTotal - grandTotalValue;
+            const diffRatio = Math.abs(diff) / grandTotalValue;
+
+            if (diffRatio > 0.05) {
+              errors.push({
+                field: 'grand_total',
+                error_type: 'MATHEMATICAL_MISMATCH',
+                message:
+                  `Item totals sum (${summedTotal.toFixed(2)}) differs from grand_total ` +
+                  `(${grandTotalValue.toFixed(2)}) by ${Math.abs(diff).toFixed(2)} ` +
+                  `(${(diffRatio * 100).toFixed(1)}%)`,
+                severity: 'WARNING',
+              });
+            }
           }
         }
       }

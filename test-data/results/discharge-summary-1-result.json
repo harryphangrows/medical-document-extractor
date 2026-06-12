@@ -1,0 +1,53 @@
+{
+  "document_type": "discharge_summary",
+  "confidence": 0.98,
+  "fields": {
+    "hospital_name": {
+      "confidence": 0.88,
+      "value": "City General Hospital"
+    },
+    "patient_name": {
+      "confidence": 0.88,
+      "value": "Jane Doe"
+    },
+    "admission_date": {
+      "confidence": 0.88,
+      "value": "June 1, 2024"
+    },
+    "discharge_date": {
+      "confidence": 0.88,
+      "value": "June 5, 2024"
+    },
+    "diagnosis": {
+      "confidence": 0.85,
+      "value": {
+        "primary": "chronic cholecystitis",
+        "secondary": [
+          "gallstones"
+        ]
+      }
+    },
+    "procedures_performed": {
+      "confidence": 0.88,
+      "value": [
+        "Laparoscopic cholecystectomy"
+      ]
+    },
+    "attending_physician": {
+      "confidence": 0.88,
+      "value": "Dr. Alan Grant"
+    },
+    "discharge_instructions": {
+      "value": null,
+      "confidence": 0
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "ALL",
+      "error_type": "UNIFORM_CONFIDENCE",
+      "message": "AI did not differentiate confidence scores — all 7 fields returned uniformly high confidence (original range: 0.95–0.98, all ≥ 0.90). Values reduced by 10% (after reduction: 0.85–0.88).",
+      "severity": "WARNING"
+    }
+  ]
+}

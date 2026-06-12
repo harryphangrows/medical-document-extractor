@@ -1,0 +1,49 @@
+{
+  "document_type": "discharge_summary",
+  "confidence": 0.94,
+  "fields": {
+    "hospital_name": {
+      "confidence": 0.85,
+      "value": "Mayo Clinic"
+    },
+    "patient_name": {
+      "confidence": 0.85,
+      "value": "Sarah Connor"
+    },
+    "admission_date": {
+      "confidence": 0.84,
+      "value": "01-Nov-2023"
+    },
+    "discharge_date": {
+      "confidence": 0.85,
+      "value": "04-Nov-2023"
+    },
+    "diagnosis": {
+      "confidence": 0.83,
+      "value": {
+        "primary": "Severe Dehydration and Viral Gastroenteritis",
+        "secondary": null
+      }
+    },
+    "procedures_performed": {
+      "confidence": 0,
+      "value": null
+    },
+    "attending_physician": {
+      "confidence": 0.85,
+      "value": "Dr. Gregory House"
+    },
+    "discharge_instructions": {
+      "confidence": 0.82,
+      "value": "Drink at least 2 liters of fluids containing electrolytes daily. Eat a bland diet (bananas, rice, applesauce, toast) for the next 3 days. Return to the Emergency Room immediately if you experience a fever above 39°C or cannot keep fluids down for more than 12 hours."
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "ALL",
+      "error_type": "UNIFORM_CONFIDENCE",
+      "message": "AI did not differentiate confidence scores — all 7 fields returned uniformly high confidence (original range: 0.91–0.95, all ≥ 0.90). Values reduced by 10% (after reduction: 0.82–0.85).",
+      "severity": "WARNING"
+    }
+  ]
+}

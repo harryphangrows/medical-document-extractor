@@ -1,0 +1,169 @@
+{
+  "document_type": "lab_report",
+  "confidence": 0.94,
+  "fields": {
+    "lab_name": {
+      "confidence": 0.2,
+      "value": "Your Lab Name"
+    },
+    "patient_name": {
+      "confidence": 0.5,
+      "value": "MR ALI -"
+    },
+    "date": {
+      "confidence": 0.94,
+      "value": "11-Oct-2023"
+    },
+    "tests": {
+      "confidence": 0.5,
+      "value": [
+        {
+          "flag": "normal",
+          "reference_range": "11 - 17.2",
+          "result": "15.3",
+          "test_name": "Hemoglobin (Hb)",
+          "unit": "g/dL"
+        },
+        {
+          "flag": "high",
+          "reference_range": "4.0 - 11.0",
+          "result": "11.8",
+          "test_name": "Total WBC ( TLC )",
+          "unit": "x10^9/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "40 - 50",
+          "result": "45",
+          "test_name": "HCT",
+          "unit": ".%"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "75 - 95",
+          "result": "93",
+          "test_name": "MCV",
+          "unit": "f/L"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "26 - 32",
+          "result": "31",
+          "test_name": "MCH",
+          "unit": "pg"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "30 - 35",
+          "result": "34",
+          "test_name": "MCHC",
+          "unit": "gm/dL"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "11.5 - 14.5",
+          "result": "13.1",
+          "test_name": "RDW",
+          "unit": "fL"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "150 - 450",
+          "result": "330",
+          "test_name": "Platelet Count",
+          "unit": "x10^9/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "7.5 - 11.5",
+          "result": "10.6",
+          "test_name": "MPV",
+          "unit": "fL"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "4.5 - 5.5",
+          "result": "4.9",
+          "test_name": "Total RBC",
+          "unit": "x10^12/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "50 - 70",
+          "result": "66.7",
+          "test_name": "Neutrophils",
+          "unit": "%"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "20 - 40",
+          "result": "24.5",
+          "test_name": "Lymphocytes",
+          "unit": "%"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "2 - 8",
+          "result": "6.3",
+          "test_name": "Monocytes",
+          "unit": "%"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "1 - 4",
+          "result": "2.5",
+          "test_name": "Eosinophils",
+          "unit": "%"
+        },
+        {
+          "flag": "high",
+          "reference_range": "2.00 - 7.00",
+          "result": "7.8",
+          "test_name": "Abs. Neutrophils",
+          "unit": "x10^9/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "1.00 - 3.00",
+          "result": "2.90",
+          "test_name": "Abs. Lymphocytes",
+          "unit": "x10^9/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "0.20 - 1.00",
+          "result": "0.74",
+          "test_name": "Abs. Monocytes",
+          "unit": "x10^9/l"
+        },
+        {
+          "flag": "normal",
+          "reference_range": "0.02 - 0.50",
+          "result": "0.29",
+          "test_name": "Abs. Eosinophils",
+          "unit": "x10^9/l"
+        }
+      ]
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "patient_name",
+      "error_type": "SUSPICIOUS_VALUE",
+      "message": "Field 'patient_name' has trailing OCR artifact: \"MR ALI -\". Value appears to be truncated at a line break.",
+      "severity": "WARNING"
+    },
+    {
+      "field": "lab_name",
+      "error_type": "SUSPICIOUS_VALUE",
+      "message": "Field 'lab_name' contains a template placeholder: \"Your Lab Name\". The source document may be blank or AI copied a field label.",
+      "severity": "WARNING"
+    },
+    {
+      "field": "tests[2].unit",
+      "error_type": "SUSPICIOUS_VALUE",
+      "message": "Test \"HCT\" unit \".%\" starts with an OCR artifact character. Expected a clean unit symbol (e.g. \"%\", \"g/dL\").",
+      "severity": "WARNING"
+    }
+  ]
+}

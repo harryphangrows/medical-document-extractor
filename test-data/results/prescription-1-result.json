@@ -1,0 +1,59 @@
+{
+  "document_type": "prescription",
+  "confidence": 0.9,
+  "fields": {
+    "doctor_name": {
+      "confidence": 0.82,
+      "value": "Steve Johnson"
+    },
+    "patient_name": {
+      "confidence": 0.82,
+      "value": "John Smith"
+    },
+    "date": {
+      "confidence": 0.45,
+      "value": "09-11-12"
+    },
+    "medications": {
+      "confidence": 0.8,
+      "value": [
+        {
+          "dosage": "100mg",
+          "duration": null,
+          "frequency": "BID",
+          "name": "Betaloc",
+          "quantity": "1 tab"
+        },
+        {
+          "dosage": "10 mg",
+          "duration": null,
+          "frequency": "BID",
+          "name": "Dorzolamidum",
+          "quantity": "1 tab"
+        },
+        {
+          "dosage": "50 mg",
+          "duration": null,
+          "frequency": "TID",
+          "name": "Cimetidine",
+          "quantity": "2 tabs"
+        },
+        {
+          "dosage": "50mg",
+          "duration": null,
+          "frequency": "QD",
+          "name": "Oxprelol",
+          "quantity": "1 tab"
+        }
+      ]
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "date",
+      "error_type": "AMBIGUOUS_DATE",
+      "message": "Field 'date' has a 2-digit year: \"09-11-12\". The century is ambiguous (e.g. \"23\" could be 1923 or 2023). Use a 4-digit year.",
+      "severity": "WARNING"
+    }
+  ]
+}

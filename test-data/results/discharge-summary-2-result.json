@@ -1,0 +1,51 @@
+{
+  "document_type": "discharge_summary",
+  "confidence": 0.95,
+  "fields": {
+    "hospital_name": {
+      "confidence": 0.85,
+      "value": "Seattle Grace Hospital"
+    },
+    "patient_name": {
+      "confidence": 0.85,
+      "value": "Michael Scott"
+    },
+    "admission_date": {
+      "confidence": 0.85,
+      "value": "10-May-2024"
+    },
+    "discharge_date": {
+      "confidence": 0.85,
+      "value": "15-May-2024"
+    },
+    "diagnosis": {
+      "confidence": 0.85,
+      "value": {
+        "primary": "Acute Appendicitis",
+        "secondary": null
+      }
+    },
+    "procedures_performed": {
+      "confidence": 0.85,
+      "value": [
+        "Laparoscopic Appendectomy"
+      ]
+    },
+    "attending_physician": {
+      "confidence": 0.85,
+      "value": "Dr. Derek Shepherd"
+    },
+    "discharge_instructions": {
+      "confidence": 0.85,
+      "value": "Rest for 2 weeks. Do not lift objects heavier than 10 lbs. Keep the surgical wound clean and dry. Follow up in the clinic in 7 days."
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "ALL",
+      "error_type": "UNIFORM_CONFIDENCE",
+      "message": "AI did not differentiate confidence scores — all 8 fields returned identical confidence 0.95. Values reduced by 10% (after reduction: 0.85–0.85).",
+      "severity": "WARNING"
+    }
+  ]
+}

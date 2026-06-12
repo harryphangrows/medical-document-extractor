@@ -1,0 +1,81 @@
+{
+  "document_type": "receipt",
+  "confidence": 0.95,
+  "fields": {
+    "hospital_name": {
+      "confidence": 0.95,
+      "value": "HARRIS HEALTH"
+    },
+    "patient_name": {
+      "confidence": 0.95,
+      "value": "Apple Song"
+    },
+    "date": {
+      "confidence": 0.45,
+      "value": "23/09/22"
+    },
+    "items": {
+      "confidence": 0.95,
+      "value": [
+        {
+          "description": "Full body check up",
+          "quantity": null,
+          "total": 700,
+          "unit_price": null
+        },
+        {
+          "description": "Infection check due inflammation",
+          "quantity": null,
+          "total": 560,
+          "unit_price": null
+        },
+        {
+          "description": null,
+          "quantity": null,
+          "total": 320,
+          "unit_price": null
+        },
+        {
+          "description": null,
+          "quantity": null,
+          "total": 200,
+          "unit_price": null
+        },
+        {
+          "description": null,
+          "quantity": null,
+          "total": 3450,
+          "unit_price": null
+        },
+        {
+          "description": null,
+          "quantity": null,
+          "total": 2600,
+          "unit_price": null
+        }
+      ]
+    },
+    "grand_total": {
+      "confidence": 0.5,
+      "value": 20340
+    },
+    "payment_method": {
+      "value": null,
+      "confidence": 0
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "date",
+      "error_type": "AMBIGUOUS_DATE",
+      "message": "Field 'date' has a 2-digit year: \"23/09/22\". The century is ambiguous (e.g. \"23\" could be 1923 or 2023). Use a 4-digit year.",
+      "severity": "WARNING"
+    },
+    {
+      "field": "grand_total",
+      "error_type": "MATHEMATICAL_MISMATCH",
+      "message": "Item totals sum (7830.00) differs from grand_total (20340.00) by 12510.00 (61.5%)",
+      "severity": "WARNING"
+    }
+  ]
+}

@@ -150,6 +150,33 @@ export const medicationsField = (): Schema => ({
   required: ['confidence'],
 });
 
+// ─── Canonical field list per document type ────────────────────────────────────
+// Used to (a) strip extra fields returned by the AI for the wrong type, and
+// (b) inject { value: null, confidence: 0 } for any required field the AI omitted.
+
+export const FIELDS_BY_TYPE: Record<string, string[]> = {
+  receipt: [
+    'hospital_name',
+    'patient_name',
+    'date',
+    'items',
+    'grand_total',
+    'payment_method',
+  ],
+  discharge_summary: [
+    'hospital_name',
+    'patient_name',
+    'admission_date',
+    'discharge_date',
+    'diagnosis',
+    'procedures_performed',
+    'attending_physician',
+    'discharge_instructions',
+  ],
+  lab_report: ['lab_name', 'patient_name', 'date', 'tests'],
+  prescription: ['doctor_name', 'patient_name', 'date', 'medications'],
+};
+
 // ─── Master response schema (covers all 4 document types) ─────────────────────
 
 export const RESPONSE_SCHEMA: Schema = {

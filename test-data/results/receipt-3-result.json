@@ -1,0 +1,75 @@
+{
+  "document_type": "receipt",
+  "confidence": 0.95,
+  "fields": {
+    "hospital_name": {
+      "confidence": 0.95,
+      "value": "Ridgewood Animal Hospital"
+    },
+    "patient_name": {
+      "confidence": 0.95,
+      "value": "Gwen Dugan"
+    },
+    "date": {
+      "confidence": 0.45,
+      "value": "10-11-23"
+    },
+    "items": {
+      "confidence": 0.95,
+      "value": [
+        {
+          "description": "Litter exam - >5",
+          "quantity": 1,
+          "total": 200,
+          "unit_price": null
+        },
+        {
+          "description": "Biohazard/OSHA Compliance",
+          "quantity": 1,
+          "total": 5,
+          "unit_price": null
+        },
+        {
+          "description": "Bordetella Oral Vaccine 1 Yr",
+          "quantity": 7,
+          "total": 182,
+          "unit_price": null
+        },
+        {
+          "description": "DHPP vaccine #1 series of 2",
+          "quantity": 7,
+          "total": 175,
+          "unit_price": null
+        },
+        {
+          "description": "Fecal Examination (Flotation)",
+          "quantity": 1,
+          "total": 27,
+          "unit_price": null
+        }
+      ]
+    },
+    "grand_total": {
+      "confidence": 0.35,
+      "value": 0
+    },
+    "payment_method": {
+      "confidence": 0.9,
+      "value": "Cash, Visa"
+    }
+  },
+  "validation_errors": [
+    {
+      "field": "date",
+      "error_type": "AMBIGUOUS_DATE",
+      "message": "Field 'date' has a 2-digit year: \"10-11-23\". The century is ambiguous (e.g. \"23\" could be 1923 or 2023). Use a 4-digit year.",
+      "severity": "WARNING"
+    },
+    {
+      "field": "grand_total",
+      "error_type": "MATHEMATICAL_MISMATCH",
+      "message": "grand_total is 0 but item totals sum to 589.00. This is likely an OCR read error — the actual total was not captured.",
+      "severity": "ERROR"
+    }
+  ]
+}
