@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GoogleGenAI, createPartFromUri } from '@google/genai';
 import * as os from 'os';
@@ -14,13 +14,17 @@ import {
   RESPONSE_SCHEMA,
 } from './schemas/gemini-response.schema';
 import { SYSTEM_PROMPT, USER_PROMPT } from './document.prompts';
+import { DocumentValidationService } from './document-validation.service';
 
 @Injectable()
 export class DocumentService {
   private readonly ai: GoogleGenAI;
   private readonly model: string;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly validationService: DocumentValidationService,
+  ) {
     const apiKey = this.configService.getOrThrow<string>('GEMINI_API_KEY');
     this.ai = new GoogleGenAI({ apiKey });
     this.model =
@@ -87,7 +91,7 @@ export class DocumentService {
       );
 
       // 7. Run post-processing validations
-      const validationErrors = this.runValidation({
+      const validationErrors = this.validationService.validate({
         ...parsed,
         fields: activeFields,
       });
@@ -107,95 +111,6 @@ export class DocumentService {
       }
       fs.unlink(tmpPath, () => undefined);
     }
-  }
-
-  // ─── Validation ──────────────────────────────────────────────────────────────
-
-  /**
-   * Parses date strings in multiple common formats used in real-world medical
-   * documents (ISO, DD/MM/YYYY, MM/DD/YYYY, named months, etc.).
-   */
-  private parseDate(raw: string): Date | null {
-    if (!raw || raw.trim() === '') return null;
-    const s = raw.trim();
-
-    // ISO: YYYY-MM-DD or YYYY/MM/DD
-    if (/^\d{4}[-/]\d{1,2}[-/]\d{1,2}$/.test(s)) {
-      const d = new Date(s.replace(/\//g, '-'));
-      return isNaN(d.getTime()) ? null : d;
-    }
-
-    // DD/MM/YYYY or DD-MM-YYYY (Asia / Europe)
-    const dmy = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
-    if (dmy) {
-      const [, dd, mm, yyyy] = dmy;
-      const d = new Date(
-        `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`,
-      );
-      return !isNaN(d.getTime()) && d.getMonth() + 1 === parseInt(mm)
-        ? d
-        : null;
-    }
-
-    // Named month: "19 Nov 2025", "November 19, 2025", "19-Nov-2025"
-    const d = new Date(s);
-    return isNaN(d.getTime()) ? null : d;
-  }
-
-  private runValidation(result: AiExtractionResult): string[] {
-    const errors: string[] = [];
-    const fields = result.fields;
-
-    // Rule 1: dates must be parseable
-    const DATE_FIELDS = ['date', 'admission_date', 'discharge_date'];
-    for (const key of DATE_FIELDS) {
-      const f = fields[key];
-      if (f?.value != null && typeof f.value === 'string' && f.value !== '') {
-        if (!this.parseDate(f.value)) {
-          errors.push(`Invalid date format in field '${key}': "${f.value}"`);
-        }
-      }
-    }
-
-    // Rule 2: monetary amounts must be positive
-    const AMOUNT_FIELDS = ['grand_total', 'unit_price'];
-    for (const key of AMOUNT_FIELDS) {
-      const f = fields[key];
-      if (f?.value != null && typeof f.value === 'number' && f.value < 0) {
-        errors.push(
-          `Field '${key}' must be a positive number, got ${f.value}`,
-        );
-      }
-    }
-
-    // Rule 3: receipt — sum of item totals should match grand_total (±5%)
-    if (result.document_type === 'receipt') {
-      const itemsField = fields['items'];
-      const grandTotalField = fields['grand_total'];
-
-      if (
-        Array.isArray(itemsField?.value) &&
-        grandTotalField?.value != null &&
-        typeof grandTotalField.value === 'number' &&
-        grandTotalField.value > 0
-      ) {
-        const items = itemsField.value as Array<{ total?: number | null }>;
-        const summedTotal = items.reduce(
-          (sum, item) => sum + (item.total ?? 0),
-          0,
-        );
-        const grandTotal = grandTotalField.value;
-        const diffRatio = Math.abs(summedTotal - grandTotal) / grandTotal;
-
-        if (diffRatio > 0.05) {
-          errors.push(
-            `Item totals sum (${summedTotal.toFixed(2)}) differs from grand_total (${grandTotal.toFixed(2)}) by more than 5%`,
-          );
-        }
-      }
-    }
-
-    return errors;
   }
 
   // ─── Post-processing sanitizers ──────────────────────────────────────────────
@@ -286,10 +201,14 @@ export class DocumentService {
   // ─── Retry with exponential backoff ──────────────────────────────────────────
 
   /**
-   * Retries `fn` up to `maxRetries` times when the Gemini API responds with a
-   * transient error (503 UNAVAILABLE or 429 RESOURCE_EXHAUSTED).
-   * Delay doubles on each attempt (1 s → 2 s → 4 s).
-   * For 429 responses Gemini sometimes hints the exact wait time — we honour it.
+   * Retries `fn` up to `maxRetries` times for transient errors only.
+   *
+   * Retryable:   503 UNAVAILABLE, 429 per-minute rate-limit
+   * NOT retryable: 429 daily quota exhaustion — retrying is pointless and
+   *                wastes quota; we throw a clean HTTP 429 to the caller.
+   *
+   * Delay doubles each attempt (1 s → 2 s → 4 s).
+   * If Gemini hints a retryDelay in the body we honour it instead.
    */
   private async withRetry<T>(
     fn: () => Promise<T>,
@@ -303,6 +222,21 @@ export class DocumentService {
         return await fn();
       } catch (err: unknown) {
         lastError = err;
+
+        // Daily quota is never recoverable within a single request — surface
+        // it immediately as a proper HTTP 429 instead of burning retries.
+        if (this.isDailyQuotaExhausted(err)) {
+          throw new HttpException(
+            {
+              statusCode: HttpStatus.TOO_MANY_REQUESTS,
+              error: 'Too Many Requests',
+              message:
+                'Gemini API daily free-tier quota exhausted (20 req/day). ' +
+                'Please wait until tomorrow or upgrade to a paid plan.',
+            },
+            HttpStatus.TOO_MANY_REQUESTS,
+          );
+        }
 
         if (!this.isRetryable(err) || attempt === maxRetries) {
           throw err;
@@ -318,31 +252,56 @@ export class DocumentService {
     throw lastError;
   }
 
-  /** Returns true for transient server-side errors worth retrying. */
+  /**
+   * Returns true only for transient errors that a short wait can resolve:
+   * - 503 UNAVAILABLE (server overloaded)
+   * - 429 per-minute / per-second rate-limit  (NOT daily quota — see isDailyQuotaExhausted)
+   */
   private isRetryable(err: unknown): boolean {
-    const status =
-      err != null && typeof err === 'object' && 'status' in err
-        ? (err as { status: unknown }).status
-        : undefined;
-    return status === 503 || status === 429;
+    const status = this.extractStatus(err);
+    if (status === 503) return true;
+    if (status === 429) return !this.isDailyQuotaExhausted(err);
+    return false;
   }
 
   /**
-   * Gemini 429 errors include a `retryDelay` field (e.g. "50s") in the
-   * JSON body — extract it so we wait the recommended duration.
+   * Returns true when the 429 body contains a daily-quota violation.
+   * The quotaId "…PerDay…" is present in both free-tier and paid daily limits.
+   */
+  private isDailyQuotaExhausted(err: unknown): boolean {
+    const msg = this.extractMessage(err);
+    return msg.includes('PerDay') || msg.includes('per_day');
+  }
+
+  /**
+   * Gemini 429 errors may include a `retryDelay` hint (e.g. `"retryDelay":"14s"`)
+   * in the JSON body — honour it so we don't hammer the API.
    */
   private extractRetryAfterMs(err: unknown): number | null {
     try {
-      const msg =
-        err != null && typeof err === 'object' && 'message' in err
-          ? String((err as { message: unknown }).message)
-          : '';
-      const match = msg.match(/"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/);
+      const match = this.extractMessage(err).match(
+        /"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/,
+      );
       if (match) return Math.ceil(parseFloat(match[1])) * 1000;
     } catch {
       // ignore parse errors
     }
     return null;
+  }
+
+  private extractStatus(err: unknown): number | undefined {
+    if (err != null && typeof err === 'object' && 'status' in err) {
+      const s = (err as { status: unknown }).status;
+      return typeof s === 'number' ? s : undefined;
+    }
+    return undefined;
+  }
+
+  private extractMessage(err: unknown): string {
+    if (err != null && typeof err === 'object' && 'message' in err) {
+      return String((err as { message: unknown }).message);
+    }
+    return '';
   }
 
   private sleep(ms: number): Promise<void> {

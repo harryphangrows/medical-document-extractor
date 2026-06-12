@@ -53,6 +53,11 @@ export class DocumentController {
     type: ExtractionResponseSchema,
   })
   @ApiResponse({ status: 400, description: 'Invalid file type or missing file' })
+  @ApiResponse({
+    status: 429,
+    description:
+      'Gemini API daily free-tier quota exhausted (20 req/day). Wait until tomorrow or upgrade.',
+  })
   async extract(
     @UploadedFile() file: Express.Multer.File,
   ): Promise<ExtractionResponseSchema> {
