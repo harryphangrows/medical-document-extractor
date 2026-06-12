@@ -1,6 +1,6 @@
 # Bài chọn và trả lời Câu hỏi tư duy
 
-Tôi xin phép chọn 5 câu hỏi. Dưới đây là phần trả lời của tôi:
+Tôi xin phép chọn 4 câu hỏi. Dưới đây là phần trả lời của tôi:
 
 ---
 
