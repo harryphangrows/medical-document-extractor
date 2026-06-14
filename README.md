@@ -15,13 +15,17 @@ I received the email from HR about 1 day ago and I am now submitting my work.
 
 ---
 
-## My Submission — Two Parts
+## My Submission — Three Parts
 
 ### Part 1 — Logical Thinking Questions
 
-Please read my answers here: [Logical_Questions/Answers.md](./Logical_Questions/Answers.md)
+Please read my answers here: [Logical_Questions/Answers.md](./Logical_Questions/Answers.md) (updated from 4 to 5 questions per HR follow-up)
 
-### Part 2 — AI Challenge 08
+### Part 2 — AI Challenge 02 (Claims Data Cleanup)
+
+Please see my solution here: [AI_Challenge_02/](./AI_Challenge_02/)
+
+### Part 3 — AI Challenge 08 (Medical Document Extractor)
 
 See the details below.
 

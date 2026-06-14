@@ -1,12 +1,12 @@
 # Bài chọn và trả lời Câu hỏi tư duy
 
-Tôi xin phép chọn 4 câu hỏi. Dưới đây là phần trả lời của tôi:
+Tôi xin phép chọn 5 câu hỏi. Dưới đây là phần trả lời của tôi:
 
 ---
 
 ## Câu hỏi số 1
 
-> **Q11 — Bạn có đặt tên cho đồ vật mình sở hữu không? Liệt kê một số tên. · [N]**
+> **Q11 — Bạn có đặt tên cho đồ vật mình sở hữu không? Liệt kê một số tên. ·**
 
 **Câu trả lời:**
 
@@ -20,7 +20,7 @@ Những đồ vật phân loại theo sản xuất và quy ước như vậy cho
 
 ## Câu hỏi số 2
 
-> **Q5 — Lần cuối bạn bỏ quên một món đồ là khi nào? Đồ gì? · [M, O]**
+> **Q5 — Lần cuối bạn bỏ quên một món đồ là khi nào? Đồ gì? ·**
 
 **Câu trả lời:**
 
@@ -32,7 +32,7 @@ Tại sao bị mất? ( vì ở Sảnh A cộng đồng tôi có việc đi qua 
 
 ## Câu hỏi số 3
 
-> **Q7 — Vị trí ngồi nào tốt nhất trên xe buýt? · [O, G]**
+> **Q7 — Vị trí ngồi nào tốt nhất trên xe buýt? ·**
 
 **Câu trả lời:**
 
@@ -86,4 +86,60 @@ Cuối cùng là tại sao tôi lại tìm ra được vấn đề này. thực 
 
 ---
 
-Cuối cùng là xin cảm ơn bạn đã đọc tới đây. Trân Trọng.
+
+## Câu hỏi số 5
+
+> *(update: trong đề ban đầu ghi chọn 3–5 câu, tôi đã chọn 4. Sau đó HR phản hồi là cần chọn ít nhất 5 câu.)*
+
+> **Q3 — Người bán hàng nào dễ chịu nhất? ·**
+
+**Câu trả lời:**
+
+Theo như tôi nhớ lại lần trên đường về quê. tôi đã dừng lại khu vực Di Linh Lâm Đồng, trước khi sáp nhập tỉnh. Tầm 2 năm trước.
+
+Tôi mang xe (xe máy yamaha jupiter trong giấy đăng ký xe là màu đỏ đen và xám, bản FI, khác với bản mới hiện nay đã đổi kiểu dáng, bỏ mẫu. dòng xe 115cc, xe số) đi sửa.
+
+Tiệm sửa xe tên là phuộc nhún Quốc Lâm, nằm trên đường QL28 song hành với QL20 trục chính. (tôi còn nhớ sự kiện nhưng mà kể chi tiết hơi dài nên xin phép đi vào trọng tâm gặp người bán hàng).
+
+Người bán hàng tên là Quốc, và cũng tên là Lâm (do tôi hỏi).
+
+Tại sao anh ấy là người bán hàng dễ chịu nhất (thể loại nào)?
+
+**Câu chuyện:**
+
+Anh hỏi khách (tôi xin phép gọi tôi là khách cho khách quan người kể chuyện) vấn đề gặp phải. với thái độ "rất từ tốn", sau đó dừng lại để "lắng nghe rất kỹ" điều khách trình bày. Anh "không ngắt lời", khi khách trình bày khách chỉ vào các thứ để cần kiểm tra và sửa chữa hoặc mua.
+
+Khách chỉ vào rất nhiều bộ phận. từ tay phanh, tới đĩa thắng, bánh xe, đèn xinhan, lốp xe, nhông sên... Gần như là Khách chỉ gần hết. Vì chạy đường xa lo an toàn.
+
+Anh ấy "quan sát" và khom lưng (nhưng không bị gù) nhìn theo những điều khách chỉ và gần như không hỏi lại, chứng tỏ là "trí nhớ vô cùng tốt", và "tỉ mỉ", "cẩn thận".
+
+(tôi nghĩ chính vì điều này làm cho lần đầu gặp đã tạo nên 1 sự kết nối của sự tin tưởng)
+
+dáng đứng thẳng 2 chân, cảm giác an toàn, rất đáng tin tưởng.
+
+Sau đó anh dắt xe khách vào kiểm tra. Lúc dắt xe không quăng quật chiếc xe, cảm giác xe được bảo vệ, giữ gìn, "tôn trọng tài sản của khách"
+
+Sau đó anh báo với khách các vấn đề cần sửa hoặc bảo dưỡng. "Thái độ không vội vã"
+
+phân tích rất kỹ, anh chỉ ra 2 vấn đề:
+
+1. cần sửa và tại sao cần sửa và sửa thì bao tiền và thời gian dùng là bao lâu
+2. cần mua và tại sao cần mua và mua thì bao tiền thời gian dùng là bao lâu
+
+Anh không khuyên chọn sửa hay mua, anh cung cấp 2 hướng đi với các chi tiết rất cụ thể và tuỳ cho khách chọn xem là họ muốn như nào sau khi đã hiểu rất rõ vấn đề gặp phải. "không ép Khách"
+
+lúc đó Khách đã có sự tin tưởng và quý mến hỏi là: "thế cái này cần sửa hay mua" (lúc đầu tâm lý khách là tôi nghĩ là thôi sửa tốt thì vẫn còn dùng được chứ mua làm gì đâu)
+
+thì anh khuyên là nên mua, vì thời gian và độ bền chỉ ra "tại sao lại như vậy". (đã thành công thay đổi tâm lý của khách)
+
+rồi khách lại hỏi là: "thế nếu sửa và mua thì tiền công anh nhận được cái nào nhiều hơn?" (cái này do lúc đó tôi nghĩ chắc mua thì quán bán phải lời hơn nên hỏi cho biết không có ý gì)
+
+Anh trả lời là mua thì tiền công ít hơn vì nhà sản xuất đã làm trọn gói còn anh chỉ nhập về bán , tiền sửa thì mới nhận được công cao hơn. nhưng trong trường hợp này thì khách nên mua. "Rất là chân thật"
+
+Nói thật thì tới lúc này dù chẳng còn cái gì để mua hay là sửa nữa nhưng tự dưng tôi lại muốn mua thêm 1 cái gì đó từ quán này. (lúc đó là chưa hề biết chất lượng sửa, chỉ mới là lúc gặp người bán tư vấn và giải quyết vấn đề. Nhưng đúng là sửa xong thì chất lượng tốt thật "kỹ năng làm tốt")
+
+tôi nghĩ là với mọi người bán hàng có những phẩm chất như này thì dù khách không mua họ cũng sẽ ấn tượng giới thiệu người khác, hoặc họ sẽ ủng hộ bằng cách mua thêm dù là họ chưa cần, hoặc chính khách hàng sẽ quay lại thậm chí rất nhiều lần. Doanh thu từ những khách hàng trung thành bao giờ cũng bền và vượt trội hơn những khách hàng mới, đặc biệt là khi khách hàng đã quý mến thì cả nhà họ, con cái, cha mẹ, người thân của họ cũng sẽ đều sử dụng.
+
+Vậy tóm gọn lại là người bán hàng có những phẩm chất, kỹ năng như trong câu chuyện thực tế này của tôi tôi đã nhóm lại bằng dấu "". tôi nghĩ là đó là 1 người bán hàng dễ chịu
+
+---
